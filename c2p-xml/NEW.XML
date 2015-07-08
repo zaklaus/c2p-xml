@@ -1,15 +1,13 @@
-<document>
-	<Players>
-		<player>
-			<name inc="Ing.">John Bricketts</name>
-		</player>
-		<player>Jane Doe</player>
-		<player>Josh McAlkesh</player>
-		<player mood="good!">Goob Newald</player>
-	</Players>
-	<Fans>
-		<fan age="23" skill="dancer, gamer, pawner">
-			<name>duro</name>
-		</fan>
-	</Fans>
-</document>
+<Players>
+	<player>
+		<name inc="Ing.">John Bricketts</name>
+	</player>
+	<player>Jane Doe</player>
+	<player>Josh McAlkesh</player>
+	<player mood="good!">Goob Newald</player>
+</Players>
+<Fans>
+	<fan age="23" skill="dancer, gamer, pawner">
+		<name>duro</name>
+	</fan>
+</Fans>

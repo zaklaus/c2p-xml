@@ -40,13 +40,20 @@ int main()
 
 	std::cout << "NOW CHECK YOUR EXEC FOLDER FOR FILE 'NEW.XML'" << std::endl;
 	std::string out;
-	CXML::XMLNode::ExportXML(*g_cDocument, out, NULL);
+	CXML::XMLNode::ExportXML(*g_cDocument, out, NULL); // 3rd parameter = 0 ; Export only target node's childs.
 
 	std::ofstream file;
 	file.open("NEW.XML");
 	file << out;
 	file.close();
 
+	std::cout << "NOW CHECK YOUR EXEC FOLDER FOR FILE 'NODE.XML'" << std::endl;
+	out = "";
+	CXML::XMLNode::ExportXML((*g_cDocument).m_cNodes.at(1), out, 1); // 3rd parameter = 1 ; Include target node in export
+
+	file.open("NODE.XML");
+	file << out;
+	file.close();
 
 	getchar();
 	delete g_cDocument;

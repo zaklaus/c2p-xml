@@ -90,21 +90,27 @@ void XMLNode::DumpNode(XMLNode& node, int rec)
 
 void XMLNode::ExportXML(XMLNode& node, std::string& output, int rec)
 {
-	FOR(0,rec)
+	if(rec != 0)
 	{
-		output += '\t';
+		FOR(0,rec-1)
+		{
+			output += '\t';
+		}
+		output += "<" + node.m_szNodeName;
 	}
-	output += "<" + node.m_szNodeName;
 	if (node.m_cProps.size() == 0)
 	{
-		if(node.m_cNodes.size())
+		if(rec != 0)
 		{
-			output += ">\n";
-			
-		}
-		else
-		{
-			output += ">";
+			if(node.m_cNodes.size())
+			{
+				output += ">\n";
+				
+			}
+			else
+			{
+				output += ">";
+			}
 		}
 	}
 	else 
@@ -120,13 +126,16 @@ void XMLNode::ExportXML(XMLNode& node, std::string& output, int rec)
 				output += " ";
 			}
 		}
-		if(node.m_cNodes.size())
+		if(rec != 0)
 		{
-			output += ">\n";
-		}
-		else
-		{
-			output += ">";
+			if(node.m_cNodes.size())
+			{
+				output += ">\n";
+			}
+			else
+			{
+				output += ">";
+			}
 		}
 	}
 	if (node.m_cNodes.size() == 0)
@@ -140,14 +149,18 @@ void XMLNode::ExportXML(XMLNode& node, std::string& output, int rec)
 			XMLNode::ExportXML(node.m_cNodes.at(i), output, rec+1);
 		}
 	}
-	if(node.m_cNodes.size())
+	
+	if(rec != 0)
 	{
-		FOR(0,rec)
+		if(node.m_cNodes.size())
 		{
-			output += '\t';
+			FOR(0,rec-1)
+			{
+				output += '\t';
+			}
 		}
+		output += "</" + node.m_szNodeName + ">\n";
 	}
-	output += "</" + node.m_szNodeName + ">\n";
 }
 
 void XMLNode::ParseXML(XMLNode& node, std::string buffer, std::string name)
