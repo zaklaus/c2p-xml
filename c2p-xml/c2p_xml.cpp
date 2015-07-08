@@ -24,7 +24,7 @@
 #include <fstream>
 
 #define REPEAT(p,q) for(int __i = 0; __i < p; __i++){ std::cout << q; }
-
+#define FOR(p,q) for(int __i = p; __i < q; __i++)
 using namespace CXML;
 
 XMLProperty::XMLProperty(std::string name, std::string text)
@@ -86,6 +86,68 @@ void XMLNode::DumpNode(XMLNode& node, int rec)
 			XMLNode::DumpNode(node.m_cNodes.at(i), rec+1);
 		}
 	}
+}
+
+void XMLNode::ExportXML(XMLNode& node, std::string& output, int rec)
+{
+	FOR(0,rec)
+	{
+		output += '\t';
+	}
+	output += "<" + node.m_szNodeName;
+	if (node.m_cProps.size() == 0)
+	{
+		if(node.m_cNodes.size())
+		{
+			output += ">\n";
+			
+		}
+		else
+		{
+			output += ">";
+		}
+	}
+	else 
+	{
+		output += " ";
+		for(int i = 0; i < node.m_cProps.size(); i++)
+		{
+			output += node.m_cProps.at(i).m_szPropName + "=\"" +
+				node.m_cProps.at(i).m_szPropText + "\"";
+
+			if (i+1 != node.m_cProps.size())
+			{
+				output += " ";
+			}
+		}
+		if(node.m_cNodes.size())
+		{
+			output += ">\n";
+		}
+		else
+		{
+			output += ">";
+		}
+	}
+	if (node.m_cNodes.size() == 0)
+	{
+		output += node.m_szNodeContent;
+	}
+	else 
+	{
+		for(int i = 0; i < node.m_cNodes.size(); i++)
+		{
+			XMLNode::ExportXML(node.m_cNodes.at(i), output, rec+1);
+		}
+	}
+	if(node.m_cNodes.size())
+	{
+		FOR(0,rec)
+		{
+			output += '\t';
+		}
+	}
+	output += "</" + node.m_szNodeName + ">\n";
 }
 
 void XMLNode::ParseXML(XMLNode& node, std::string buffer, std::string name)

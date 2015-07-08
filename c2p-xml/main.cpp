@@ -19,6 +19,7 @@
  **/
 #include "c2p_xml.hpp"
 #include <iostream>
+#include <fstream>
 
 CXML::XMLDocument * g_cDocument = NULL;
 
@@ -26,8 +27,27 @@ int main()
 {
 	g_cDocument = new CXML::XMLDocument("demo.xml");
 
-	
+	std::cout << "Original XML:" << std::endl;
 	CXML::XMLNode::DumpNode(*g_cDocument, NULL);
+	
+	CXML::XMLNode goodNode = CXML::XMLNode("player", "Goob Newald");
+	CXML::XMLProperty goodProperty = CXML::XMLProperty("mood", "good!");
+	goodNode.m_cProps.push_back(goodProperty);
+
+	g_cDocument->m_cNodes.at(0).m_cNodes.push_back(goodNode);
+	std::cout << "Modified XML:" << std::endl;
+	CXML::XMLNode::DumpNode(*g_cDocument, NULL);
+
+	std::cout << "NOW CHECK YOUR EXEC FOLDER FOR FILE 'NEW.XML'" << std::endl;
+	std::string out;
+	CXML::XMLNode::ExportXML(*g_cDocument, out, NULL);
+
+	std::ofstream file;
+	file.open("NEW.XML");
+	file << out;
+	file.close();
+
+
 	getchar();
 	delete g_cDocument;
 	return 0;

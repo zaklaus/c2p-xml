@@ -36,7 +36,7 @@ namespace CXML {
 	public:
 		std::string				m_szPropName, m_szPropText;
 
-		XMLProperty(std::string, std::string);
+		XMLProperty(std::string name, std::string text);
 		~XMLProperty(){};
 	};
 
@@ -46,19 +46,20 @@ namespace CXML {
 		std::vector<XMLNode>		m_cNodes;
 		std::vector<XMLProperty>	m_cProps;
 
-		XMLNode(std::string, std::string);
+		XMLNode(std::string name, std::string buffer);
 		XMLNode(){};
 		~XMLNode();
 
-		static void ParseXML(XMLNode&, std::string, std::string);
-		static void DumpNode(XMLNode&, int);
+		static void ParseXML(XMLNode& node, std::string buffer, std::string name);
+		static void DumpNode(XMLNode& node, int rec);
+		static void ExportXML(XMLNode& node, std::string& output, int rec);
 	};
 
 	class XMLDocument : public XMLNode {
 	public:
 		std::string				m_szDocumentName;
 
-		XMLDocument(std::string);
+		XMLDocument(std::string DocumentName);
 		~XMLDocument();
 	};
 }
