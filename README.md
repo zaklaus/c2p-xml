@@ -9,7 +9,7 @@ Get the latest version of XML parser and look into main.cpp and/or source code o
 See Issues tab for information.
 
 ## Why do you update this after a long time?
-I wanted to update this small parser to fit my coding style and support cross-platform builds. The fate of this parser would be either incorporating into DZMLang(see profile) or rewriting from scratch in C.
+I wanted to update this small parser to fit my coding style and support cross-platform builds. The fate of this parser would be either incorporating into DZMLang(see profile) or rewriting from scratch.
 
 ## License
 License can be found at file 'LICENSE' in repo's root.
